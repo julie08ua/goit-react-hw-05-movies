@@ -37,10 +37,11 @@ const Movies = () => {
   return (
     <>
           <SearchBox value={name} onChange={updateSearch} />
-          
+           
           {error && <p>Error: {error}</p>}
 
           <MoviesList movies={movies} />
+
     </>
   );
 };

@@ -2,6 +2,7 @@ import { Loader } from "components/Loader/Loader";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getMovieCast } from "services/API";
+import defaultPhoto from './avatar.jpg'
 
 const Cast = () => {
     const [cast, setCast] = useState([]);
@@ -35,7 +36,9 @@ const Cast = () => {
             <li key={id}>
                 <img
                   height="200"
-                  src={`https://image.tmdb.org/t/p/w200${profile_path}`}
+                src={profile_path
+                  ? `https://image.tmdb.org/t/p/w200${profile_path}`
+                  : defaultPhoto}
                   alt={name}
                 />
               <p>Name: {name}</p>
