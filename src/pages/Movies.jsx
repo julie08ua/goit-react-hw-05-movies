@@ -1,3 +1,4 @@
+import { Loader } from "components/Loader/Loader";
 import { MoviesList } from "components/MoviesList/MoviesList";
 import { SearchBox } from "components/SearchBox/SearchBox";
 import { useEffect, useState } from "react";
@@ -6,42 +7,35 @@ import { getMovieByName } from "services/API";
 
 const Movies = () => {
     const [movies, setMovies] = useState([]);
-    const [error, setError] = useState(null);
-    const [searchParams, setSearchParams] = useSearchParams();
-    
-    const name = searchParams.get("name") ?? "";
+    const [searchParams] = useSearchParams();
+    const [isLoading, setIsLoading] = useState(false);
+    const name = searchParams.get("name");
 
     useEffect(() => {
          if (!name) return;
         async function getMovie() {
             try {
+                setIsLoading(true);
                 const response = await getMovieByName(name);
+                
                 setMovies(response.results);
             } catch (error) {
-                setError(error.message);
+                console.log(error);
             } 
+            finally {
+        setIsLoading(false);
+      }
         }
             getMovie();
     }, [name]);
 
-    const updateSearch = e => {
-        e.preventDefault();
-        
-        const searchName = e.target.value;
-        if (searchName === '') {
-            return setSearchParams({});
-        }
-        setSearchParams({ name: searchName });
-  };
-
   return (
     <>
-          <SearchBox value={name} onChange={updateSearch} />
-           
-          {error && <p>Error: {error}</p>}
+        <SearchBox />
 
+        {isLoading && <Loader />}
+         
           <MoviesList movies={movies} />
-
     </>
   );
 };

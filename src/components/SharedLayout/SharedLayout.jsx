@@ -11,7 +11,9 @@ export const SharedLayout = () => {
           <Link to="/">
             Home
           </Link>
-          <Link to="/movies">Movies</Link>
+          <Link to="/movies">
+            Movies
+          </Link>
         </nav>
       </Header>
           <Suspense fallback={<Loader />}>

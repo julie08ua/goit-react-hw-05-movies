@@ -1,7 +1,7 @@
 import { Loader } from "components/Loader/Loader";
 import MovieInfo from "components/MovieInfo/MovieInfo";
-import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import {  useEffect, useState } from "react";
+import {  useLocation, useParams } from "react-router-dom";
 import { getMovieDetails } from "services/API";
 
 const MovieDetails = () => {
@@ -14,7 +14,8 @@ const MovieDetails = () => {
     const goBack = location.state?.from ?? '/';
 
   useEffect(() => {
-      const getMovie = async () => {
+    const getMovie = async () => {
+          
         try {
             setLoading(true);
             const response = await getMovieDetails(movieId);
@@ -35,6 +36,10 @@ const MovieDetails = () => {
       {error && !loading && <p>Error: {error}</p>}
 
       <MovieInfo movie={movie} goBack={goBack} />
+
+      {/* <Suspense fallback={<Loader />}>
+          <Outlet />
+        </Suspense> */}
     </>
   );
 }
